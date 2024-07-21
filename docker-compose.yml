@@ -1,0 +1,64 @@
+services:
+  rabbitmq:
+    image: 'rabbitmq:3-management-alpine'
+    ports: 
+      - '5672:5672' 
+      - '15672:15672' 
+      - "61613:61613"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+    volumes:
+      # Persist RabbitMQ data
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - network
+    command: >
+      bash -c "
+        rabbitmq-plugins enable rabbitmq_stomp &&
+        rabbitmq-server
+      "
+ 
+  mysql:  
+    image: mysql:8.0 
+    environment:
+      MYSQL_DATABASE: 'db'  
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports: 
+      - '3309:3306'
+    expose: 
+      - '3309' 
+    networks:
+      - network
+    volumes:
+      - "./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql"
+  lunch-backend:
+    build:
+      context: ./lunch
+    container_name: lunch-backend
+    env_file: "./lunch/.env"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+      - rabbitmq 
+    networks:
+      - network
+  lunch-frontend:
+    build:
+      context: ./restaurant-picker-frontend
+    container_name: lunch-frontend 
+    ports:
+      - "80:80"
+    depends_on:
+      - lunch-backend
+      - rabbitmq 
+    networks:
+      - network
+networks:
+  network:
+    driver: bridge
+volumes:
+  rabbitmq_data:
+    driver: local
+
