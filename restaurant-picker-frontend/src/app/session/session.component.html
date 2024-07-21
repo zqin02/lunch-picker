@@ -1,0 +1,61 @@
+<div class="container"> 
+    @if(!checkConnected())
+    {
+    <div class="d-grid">
+
+        <button class="btn btn-outline-primary mb-3" type="button" (click)="createNewSession()">Create New
+            Session</button>
+    </div>
+
+
+    }
+    @else
+    {
+        @if (isHost) {
+        <div class="input-group mb-3 d-flex justify-content-start">
+            <button class="btn btn-danger" type="button" (click)="endSession()">End Session</button>
+        </div>
+        }
+        @if(isHost&&sessionName)
+        {
+        <div class="card">
+            <div class="card-header">
+                Session URL
+                <button class="btn btn-outline-secondary ms-3" (click)="copyToClipboard()">
+                    <i class="bi bi-copy"></i>
+                </button>
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote">
+                    <p class="card-text">{{origin+sessionName}}</p>
+                </blockquote>
+            </div>
+        </div>
+        }
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Restaurant name" [(ngModel)]="restaurant">
+                <button class="btn btn-outline-primary" type="button" (click)="sendRestaurant()">Send
+                    Restaurant</button>
+            </div>
+        </div>
+    </div>
+    }
+
+
+
+
+</div>
+@if(restaurantList.length>0)
+{
+<div class="card-body">
+    <h5 class="card-title">Suggested Restaurants</h5>
+    <ul class="list-group">
+        @for (item of restaurantList; track item) {
+        <li class="list-group-item">{{item}}</li>
+        }
+    </ul>
+</div>
+
+}

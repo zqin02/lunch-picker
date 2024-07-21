@@ -1,0 +1,10 @@
+ @if (toasts.length>0) {
+    <div id="ng-toast-error">
+        @for (toast of toasts; track toast) {
+            <ngb-toast  [header]="toast.type" [autohide]="true" (hidden)="removeToast()" class="ng-toast-error-item" >
+                {{toast.message}}
+            </ngb-toast>
+            }
+    </div>
+    
+}

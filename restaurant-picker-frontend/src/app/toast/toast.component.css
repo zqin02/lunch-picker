@@ -1,0 +1,10 @@
+#ng-toast-error{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.ng-toast-error-item{
+    margin:2px;
+    z-index: 1050;
+    position:relative;
+}
