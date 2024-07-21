@@ -10,15 +10,18 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
-
+  @Value("${relay.mq.host}")
+  String host;
+  @Value("${relay.mq.port}")
+  int port;
   @Value("${relay.mq.pw}")
   String pw;
 
   @Override
   public void configureMessageBroker(MessageBrokerRegistry config) {
     config.enableStompBrokerRelay("/queue", "/topic")
-            .setRelayHost("localhost")
-            .setRelayPort(61613)
+            .setRelayHost(host)
+            .setRelayPort(port)
             .setClientLogin("guest")
             .setClientPasscode(pw);
 
