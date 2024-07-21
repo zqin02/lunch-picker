@@ -10,4 +10,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Restaura
 
     List<Restaurant> findBySessionId(String sessionId);
     Restaurant findBySessionIdAndRestaurantName(String sessionId,String restaurantName);
+    Restaurant findBySessionIdAndUser(String sessionId,String user);
+    int deleteBySessionId(String sessionId);
 }

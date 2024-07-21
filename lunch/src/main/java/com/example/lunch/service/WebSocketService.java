@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WebSocketService {
-    private final static String TOPIC_DEST = "/topic/restaurant.";
-    private final static String QUEUE_ERROR_PREFIX_DEST = "/queue/error-";
+    public final static String TOPIC_DEST = "/topic/restaurant.";
+    public final static String QUEUE_ERROR_PREFIX_DEST = "/queue/error-";
     private SimpMessageSendingOperations messagingTemplate;
 
     public WebSocketService(SimpMessageSendingOperations messagingTemplate) {

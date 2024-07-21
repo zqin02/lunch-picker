@@ -37,7 +37,7 @@ public class SessionController {
     public void endSession(@RequestBody SessionInfo info) {
         ResultInfo resultInfo = restaurantService.pickRandomRestaurant(info.getUuid());
         webSocketService.publishSelection(info.getUuid(),resultInfo);
-        sessionService.endSession(info.getUuid(),info.getUser());
+        sessionInfoService.endSessionAndCleanUpData(info.getUuid(),info.getUser());
 
     }
 

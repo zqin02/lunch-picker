@@ -1,13 +1,8 @@
-package com.example.lunch.service.session;
+package com.example.lunch.service;
 
-import com.example.lunch.bean.RestaurantInfo;
-import com.example.lunch.entity.Restaurant;
 import com.example.lunch.entity.Session;
 import com.example.lunch.exception.NoSessionException;
-import com.example.lunch.repository.RestaurantRepository;
 import com.example.lunch.repository.SessionRepository;
-import com.example.lunch.service.RestaurantService;
-import com.example.lunch.service.SessionService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

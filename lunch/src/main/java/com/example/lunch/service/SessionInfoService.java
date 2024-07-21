@@ -23,4 +23,8 @@ public class SessionInfoService {
         List<String> restaurants = restaurantService.findRestaurantNameBySessionId(uuid);
         return new SessionInfo(session.getUuid(), UUIDGenerator.generateUUID(),restaurants);
     }
+    public void endSessionAndCleanUpData(String uuid,String userId) {
+        sessionService.endSession(uuid,userId);
+        restaurantService.deleteBySessionId(uuid);
+    }
 }

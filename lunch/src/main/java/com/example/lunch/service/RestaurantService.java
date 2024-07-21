@@ -22,9 +22,7 @@ public class RestaurantService {
         this.randomRestaurantPicker = randomRestaurantPicker;
     }
     public Restaurant submitRestaurant(RestaurantInfo restaurantInfo) {
-        Restaurant restaurantHistory = restaurantRepository.findBySessionIdAndRestaurantName(restaurantInfo.getUuid(), restaurantInfo.getRestaurantName());
-        if(restaurantHistory!=null)
-            throw new WebSockerException("Duplicated restaurant",restaurantInfo.getUser());
+        validateRestaurantSubmission(restaurantInfo);
         Restaurant restaurant = new Restaurant(restaurantInfo);
         return restaurantRepository.save(restaurant);
     }
@@ -36,9 +34,22 @@ public class RestaurantService {
         }
         return new ResultInfo(randomRestaurantPicker.select(restaurants).getRestaurantName());
     }
+    public void deleteBySessionId(String sessionId)
+    {
+        restaurantRepository.deleteBySessionId(sessionId);
+    }
 
     public List<String> findRestaurantNameBySessionId(String sessionId) {
         return restaurantRepository.findBySessionId(sessionId)
                 .stream().map(Restaurant::getRestaurantName).toList();
+    }
+
+    private void validateRestaurantSubmission(RestaurantInfo restaurantInfo) {
+        if (restaurantRepository.findBySessionIdAndUser(restaurantInfo.getUuid(), restaurantInfo.getUser()) != null) {
+            throw new WebSockerException("You can only submit one entry.", restaurantInfo.getUser());
+        }
+        if (restaurantRepository.findBySessionIdAndRestaurantName(restaurantInfo.getUuid(), restaurantInfo.getRestaurantName()) != null) {
+            throw new WebSockerException("Duplicated restaurant.", restaurantInfo.getUser());
+        }
     }
 }
