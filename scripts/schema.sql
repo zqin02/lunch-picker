@@ -8,5 +8,6 @@ CREATE TABLE restaurant (
 );
 CREATE TABLE session (
     uuid VARCHAR(64) PRIMARY KEY,
-    user_id VARCHAR(64) NOT NULL
+    user_id VARCHAR(64) NOT NULL,
+	user_alias VARCHAR(64)
 );
