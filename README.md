@@ -45,12 +45,17 @@ as well as setting up the development environment for both backend and frontend.
    docker-compose up
    ```
    This will start all services defined in the `docker-compose.yml` file.
+4. **Start the Application in the background and leaves them running**:
+   ```bash
+   docker-compose up -d
+   ```
+   This will start all services defined in the `docker-compose.yml` file.
 
-4. **Stop the Application**:
+5. **Stop the Application**:
    ```bash
    docker-compose down
    ```
-5. **Rebuild the Application**:
+6. **Rebuild the Application**:
    ```bash
    docker-compose up -d --build [service]
    ```
@@ -124,6 +129,12 @@ Here is a list of commonly modified variables:
   ```bash
   docker-compose logs
   ```
+- **Git Issues**: Cannot build via docker compose up
+    - [Window] failed to solve: process "/bin/sh -c ./mvnw package" did not complete successfully: exit code: 127
+    - Fix with:
+        ```bash
+            git config core.autocrlf false
+        ```
 
 - **JDK Issues**: Ensure JDK 17 is properly installed and configured in IntelliJ IDEA.
 
@@ -133,3 +144,4 @@ Here is a list of commonly modified variables:
   npm -v
   ng version
   ```
+
