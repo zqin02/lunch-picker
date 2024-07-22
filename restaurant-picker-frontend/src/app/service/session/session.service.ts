@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,17 +8,23 @@ import { Observable } from 'rxjs';
 export class SessionService {
 
   private apiUrl = 'http://localhost:8081'
+  alias$ = new BehaviorSubject<string>('');
   constructor(private http: HttpClient) { }
+
+  public updateAlias(alias: string):void { 
+    this.alias$.next(alias)
+  }
+
   public createSession(): any {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' }) 
-    return this.http.post<any>(`${this.apiUrl}/session/create`,{}, { headers: headers })
+    return this.http.post<any>(`${this.apiUrl}/session/create`,{userAlias:this.alias$.getValue()}, { headers: headers })
 
 
   }
 
   public connectSession(uuid:string): any {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' }) 
-    return this.http.get<any>(`${this.apiUrl}/session/connect/${uuid}`)
+    return this.http.post<any>(`${this.apiUrl}/session/connect/${uuid}`,{userAlias:this.alias$.getValue()})
 
 
   }

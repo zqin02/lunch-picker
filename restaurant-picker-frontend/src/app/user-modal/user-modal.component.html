@@ -1,0 +1,19 @@
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Alias</h4> 
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="mb-3">
+                <input type="text" class="form-control" placeholder="User Alias" [(ngModel)]="name" name="alias">
+                
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-secondary" (click)="modal.close('Save click')">Proceed</button>
+	</div>
+</ng-template>
+ 
+<hr />
+ 
