@@ -1,18 +1,14 @@
-FROM node:14-alpine AS build
+FROM node:20.15-buster AS build
 
 WORKDIR /app
- 
-RUN apk add --no-cache git
-RUN git clone <REPO_URL> src
-
-WORKDIR /app/src
- 
+COPY . /app
 RUN npm install
-RUN npm run build --prod
+RUN npm run build
 
 FROM httpd:alpine
 
-/usr/local/apache2/htdocs/
+COPY --from=build /app/dist/restaurant-picker-frontend/browser /usr/local/apache2/htdocs/
+
 
 EXPOSE 80
 
