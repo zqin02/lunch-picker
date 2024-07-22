@@ -6,7 +6,6 @@ import com.example.lunch.entity.Restaurant;
 import com.example.lunch.exception.WebSockerException;
 import com.example.lunch.repository.RestaurantRepository;
 import com.example.lunch.service.picker.IPicker;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

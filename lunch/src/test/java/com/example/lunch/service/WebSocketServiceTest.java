@@ -2,6 +2,7 @@ package com.example.lunch.service;
 
 import com.example.lunch.bean.RestaurantInfo;
 import com.example.lunch.exception.WebSockerException;
+import com.example.lunch.utils.UUIDGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,10 +20,10 @@ class WebSocketServiceTest {
 
 
     @Test
-    public void testSubmitMessage() {
+    void testSubmitMessage() {
         String name = "Test Restaurant";
-        String userId = "usert";
-        String sessionId = "sessionkey";
+        String userId = UUIDGenerator.generateUUID();
+        String sessionId = UUIDGenerator.generateUUID();
         String destination = WebSocketService.TOPIC_DEST+sessionId;
         RestaurantInfo restaurantInfo = new RestaurantInfo(sessionId,name,userId);
         webSocketService.submitSession(restaurantInfo);
@@ -33,7 +34,7 @@ class WebSocketServiceTest {
 
     @Test
     void notifyError() {
-        String userId = "usert";
+        String userId = UUIDGenerator.generateUUID();
         String destination = WebSocketService.QUEUE_ERROR_PREFIX_DEST+userId;
         WebSockerException ex = new WebSockerException("Invalid",userId);
         webSocketService.notifyError(ex);

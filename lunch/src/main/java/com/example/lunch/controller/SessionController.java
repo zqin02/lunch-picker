@@ -1,5 +1,6 @@
 package com.example.lunch.controller;
 
+import com.example.lunch.bean.CreateSessionRequest;
 import com.example.lunch.bean.ResultInfo;
 import com.example.lunch.bean.SessionInfo;
 import com.example.lunch.entity.Session;
@@ -26,9 +27,9 @@ public class SessionController {
 
 
     @PostMapping("/create")
-    public SessionInfo createSession() {
-        Session session = sessionService.createSession();
-        SessionInfo sessionInfo = new SessionInfo(session.getUuid(),session.getUser());
+    public SessionInfo createSession(@RequestBody CreateSessionRequest user) {
+        Session session = sessionService.createSession(user.getUserAlias());
+        SessionInfo sessionInfo = new SessionInfo(session.getUuid(),session.getUser(),user.getUserAlias());
         webSocketService.connect(sessionInfo);
         return sessionInfo;
     }
@@ -41,9 +42,9 @@ public class SessionController {
 
     }
 
-    @GetMapping("/connect/{uuid}")
-    public SessionInfo getSessionsByUUID(@PathVariable String uuid) {
-        SessionInfo session = sessionInfoService.getSession(uuid);
+    @PostMapping("/connect/{uuid}")
+    public SessionInfo getSessionsByUUID(@PathVariable String uuid, @RequestBody CreateSessionRequest user) {
+        SessionInfo session = sessionInfoService.getSession(uuid,user.getUserAlias());
         webSocketService.connect(session);
         return session;
     }

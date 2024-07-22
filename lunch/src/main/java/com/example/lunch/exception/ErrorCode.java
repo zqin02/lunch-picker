@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum ErrorCode {
     INVALID_SESSION("-10");
 
-    private String code;
+    private final String code;
 
     ErrorCode(String code) {
         this.code = code;

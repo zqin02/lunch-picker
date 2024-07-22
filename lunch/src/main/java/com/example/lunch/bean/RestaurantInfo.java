@@ -7,10 +7,6 @@ public class RestaurantInfo implements BaseAction{
 
     private final static String UPDATE_ACTION = "UPDATE";
 
-    public RestaurantInfo() {
-
-    }
-
     public RestaurantInfo(String uuid, String restaurantName, String user) {
         this.uuid = uuid;
         this.restaurantName = restaurantName;

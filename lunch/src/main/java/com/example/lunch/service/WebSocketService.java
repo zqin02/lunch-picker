@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class WebSocketService {
     public final static String TOPIC_DEST = "/topic/restaurant.";
     public final static String QUEUE_ERROR_PREFIX_DEST = "/queue/error-";
-    private SimpMessageSendingOperations messagingTemplate;
+    private final SimpMessageSendingOperations messagingTemplate;
 
     public WebSocketService(SimpMessageSendingOperations messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
