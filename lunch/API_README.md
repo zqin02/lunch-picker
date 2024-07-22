@@ -4,10 +4,9 @@
 
 ### Description
 The `RestaurantController` is responsible for handling the submission of restaurant information. It communicates with a WebSocket service to broadcast the submitted restaurant details to all users within the session.
-
-### Endpoints
-
-#### `POST /submit`
+ 
+### WebSocket Endpoints
+#### `/app/submit`
 - **Description**: Submits restaurant information provided by a user and publishes it to all users within the session.
 - **Request Payload**:
   ```json
@@ -36,6 +35,12 @@ The `SessionController` manages sessions, including creating, ending, and retrie
 
 #### `POST /session/create`
 - **Description**: Creates a new session.
+- **Request Body**:
+  ```json
+    {
+      "userAlias": "string"
+    }
+  ```
 - **Response**:
   ```json
   {
@@ -44,7 +49,7 @@ The `SessionController` manages sessions, including creating, ending, and retrie
   }
   ```
 - **Flow**:
-  1. Calls `sessionService.createSession()` to start a new session.
+  1. Calls `sessionService.createSession(userAlias)` to start a new session.
   2. Constructs a `SessionInfo` object from the created session data.
   3. Uses `webSocketService.connect(sessionInfo)` to establish WebSocket communication for the session.
   4. Returns the created `SessionInfo` object, containing the session's UUID and the initiating user's information.
@@ -69,6 +74,12 @@ The `SessionController` manages sessions, including creating, ending, and retrie
 - **Description**: Retrieves session information by UUID.
 - **Path Variable**:
   - `uuid`: The UUID of the session provided by the initiator.
+- **Request Body**:
+  ```json
+    {
+      "userAlias": "string"
+    }
+  ```
 - **Response**:
   ```json
   {
@@ -84,4 +95,3 @@ The `SessionController` manages sessions, including creating, ending, and retrie
 - **Exception Flow**:
   1. **No Session Found**: User is unable to join a session that has already ended or does not exist.
 
----
