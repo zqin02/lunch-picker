@@ -5,8 +5,6 @@
 This README provides instructions for setting up and running the lunch picker application using Docker Compose,
 as well as setting up the development environment for both backend and frontend.
 
----
-
 ## Prerequisites
 
 ### Docker and Docker Compose Installation
@@ -17,6 +15,8 @@ as well as setting up the development environment for both backend and frontend.
 
 2. **Install Docker Compose**:
     - Docker Compose is included with Docker Desktop for Windows/Mac. For Linux, follow the instructions on [Docker Compose installation page](https://docs.docker.com/compose/install/).
+
+## Prerequisites for development
 
 ### Java Development Kit (JDK)
 
@@ -30,7 +30,6 @@ as well as setting up the development environment for both backend and frontend.
   npm install -g @angular/cli
   ```
 
----
 
 ## Running the Application
 
@@ -45,6 +44,7 @@ as well as setting up the development environment for both backend and frontend.
    docker-compose up
    ```
    This will start all services defined in the `docker-compose.yml` file.
+   Please be aware that npm install take times to run.
 4. **Start the Application in the background and leaves them running**:
    ```bash
    docker-compose up -d
@@ -103,7 +103,7 @@ as well as setting up the development environment for both backend and frontend.
 
 ## Configuration Variables
 
-Here is a list of commonly modified variables:
+Here is a list of variables in .env:
 
 - **Ports**:
     - Modify the `docker-compose.yml` file to change the port mappings.
@@ -112,8 +112,8 @@ Here is a list of commonly modified variables:
     - relay.mq.port=61613
     - relay.mq.pw=(replace it)
     - spring.datasource.url=jdbc:mysql://mysql:3306/db
-    -  spring.datasource.username
-    - spring.datasource.password
+    -  spring.datasource.username=(replace it)
+    - spring.datasource.password=(replace it)
 - **Environment Variables[development]**:
     - relay.mq.host=localhost
     - relay.mq.port=61613
