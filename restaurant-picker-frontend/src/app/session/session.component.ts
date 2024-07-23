@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { WebsocketService } from '../service/websocket/websocket.service';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ import { UserModalService } from '../service/modal/user-modal.service';
   styleUrl: './session.component.css',
   providers: [WebsocketService]
 })
-export class SessionComponent implements OnInit, OnDestroy , AfterViewInit{
+export class SessionComponent implements OnInit, OnDestroy, AfterViewInit{
   origin = `${window.location.origin}?code=`;
   sessionName: string = ''
   restaurant: string = ''
@@ -180,17 +180,5 @@ export class SessionComponent implements OnInit, OnDestroy , AfterViewInit{
       console.error('Could not copy text: ', err);
     });
   }
-  private handleOpenModal(fn: () => {}) {
-    this.userModalService.triggerOpenModal()?.then(
-      (name) => {
-        if (fn)
-          fn()
-      },
-      (reason) => {
-        console.log('Modal dismissed:', reason);
-      }
-    ).catch((error) => {
-      console.error('Error opening modal:', error);
-    });
-  }
+
 }

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 
 @Injectable({

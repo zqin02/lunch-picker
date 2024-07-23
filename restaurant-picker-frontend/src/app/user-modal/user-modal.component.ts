@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Output, TemplateRef, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SessionService } from '../service/session/session.service';
 import { UserModalService } from '../service/modal/user-modal.service';
 
