@@ -3,6 +3,7 @@ package com.example.lunch.service;
 import com.example.lunch.bean.SessionInfo;
 import com.example.lunch.entity.Session;
 import com.example.lunch.utils.UUIDGenerator;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class SessionInfoServiceTest {
 
@@ -42,9 +42,9 @@ class SessionInfoServiceTest {
 
         SessionInfo sessionInfo = sessionInfoService.getSession(uuid, userAlias);
 
-        assertEquals(uuid, sessionInfo.getUuid());
-        assertEquals(userAlias, sessionInfo.getUserAlias());
-        assertEquals(restaurants, sessionInfo.getRestaurantInfos());
+        Assertions.assertEquals(uuid, sessionInfo.getUuid());
+        Assertions.assertEquals(userAlias, sessionInfo.getUserAlias());
+        Assertions.assertEquals(restaurants, sessionInfo.getRestaurantInfos());
         Mockito.verify(sessionService, Mockito.times(1)).getSessionsByUuid(uuid);
         Mockito.verify(restaurantService, Mockito.times(1)).findRestaurantNameBySessionId(uuid);
     }
