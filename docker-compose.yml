@@ -5,9 +5,7 @@ services:
       - '5672:5672' 
       - '15672:15672' 
       - "61613:61613"
-    environment:
-      RABBITMQ_DEFAULT_USER: "guest"
-      RABBITMQ_DEFAULT_PASS: "guest"
+    env_file: "./config/.env"
     volumes:
       # Persist RabbitMQ data
       - rabbitmq_data:/var/lib/rabbitmq
@@ -25,9 +23,7 @@ services:
         retries: 3
   mysql:  
     image: mysql:8.0 
-    environment:
-      MYSQL_DATABASE: 'db'  
-      MYSQL_ROOT_PASSWORD: 'password'
+    env_file: "./config/.env"
     ports: 
       - '3309:3306'
     expose: 
@@ -36,6 +32,7 @@ services:
       - network
     volumes:
       - "./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql"
+      - mysql_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -44,9 +41,10 @@ services:
   lunch-backend:
     build:
       context: ./lunch 
+    #scale: 4
     env_file: "./lunch/.env"
     ports:
-      - "8081:8081"
+      - "8081"
     depends_on:
       mysql:
           condition: service_healthy
@@ -56,11 +54,10 @@ services:
       - network
   lunch-frontend:
     build:
-      context: ./restaurant-picker-frontend 
+      context: ./restaurant-picker-frontend  
     ports:
       - "80:80"
-    depends_on:
-      - lunch-backend
+    depends_on: 
       - rabbitmq 
     networks:
       - network
@@ -69,5 +66,7 @@ networks:
     driver: bridge
 volumes:
   rabbitmq_data:
+    driver: local
+  mysql_data:
     driver: local
 
